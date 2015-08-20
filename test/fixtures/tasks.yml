@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  owner: MyString
+  next_action: MyText
+  due_date: 2015-06-27
+
+two:
+  owner: MyString
+  next_action: MyText
+  due_date: 2015-06-27
