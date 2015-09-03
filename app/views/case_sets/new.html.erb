@@ -1,0 +1,16 @@
+<div class="row">
+  <table class="table">
+    <tr>
+      <th>Case #</th>
+      <th>Description</th>
+      <th>Owner</th>
+    </tr>
+    <% @cases.each do |case_obj| %>
+      <tr>
+        <th><%= link_to case_obj.case_num, case_obj.url %></th>
+        <th>case_obj.description</th>
+        <th>case_obj.owner</th>
+      </tr>
+    <% end %>
+ </table>
+</div>

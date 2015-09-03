@@ -1,0 +1,18 @@
+<div class="row">
+  <table class="table">
+    <tr>
+      <th>Case #</th>
+      <th>Description</th>
+      <th>Owner</th>
+      <th># of Tasks</th>
+    </tr>
+    <% @cases.each do |case_obj| %>
+      <tr>
+        <th><%= link_to case_obj.case_num, case_obj.url %></th>
+        <th><%= case_obj.description %></th>
+        <th><%= case_obj.owner %></th>
+        <th><%= link_to case_obj.tasks.size, case_set_case_tasks_path(:case_id => case_obj.id) %></th>
+      </tr>
+    <% end %>
+ </table>
+</div>

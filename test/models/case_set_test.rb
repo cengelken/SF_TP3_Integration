@@ -7,5 +7,9 @@ class CaseSetTest < ActiveSupport::TestCase
   end
   
   test "should log in to Salesforce via omniauth-salesforce gem" do
+    puts ENV["TARGETPROCESS_API_KEY"]
+    puts ENV["SALESFORCE_SECRET"]
+    puts ENV["SALESFORCE_KEY"]
+  end
 
 end

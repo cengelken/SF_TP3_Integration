@@ -1,0 +1,18 @@
+<div class="row">
+  <table class="table">
+    <tr>
+      <th>Task #</th>
+      <th>Next Action</th>
+      <th>Owner</th>
+      <th>Due Date</th>
+    </tr>
+    <% @tasks.each do |task| %>
+      <tr>
+        <th><%= task.id %></th>
+        <th><%= task.next_action %></th>
+        <th><%= task.owner %></th>
+        <th><%= task.due_date %></th>
+      </tr>
+    <% end %>
+ </table>
+</div>

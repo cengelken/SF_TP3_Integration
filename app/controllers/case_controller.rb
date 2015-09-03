@@ -1,2 +1,0 @@
-class CaseController < ApplicationController
-end

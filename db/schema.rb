@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150630051704) do
+ActiveRecord::Schema.define(version: 20150901042907) do
 
   create_table "case_sets", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -23,6 +23,9 @@ ActiveRecord::Schema.define(version: 20150630051704) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "case_set_id"
+    t.string   "url"
+    t.string   "description"
+    t.string   "owner"
   end
 
   add_index "cases", ["case_set_id"], name: "index_cases_on_case_set_id"
@@ -37,5 +40,16 @@ ActiveRecord::Schema.define(version: 20150630051704) do
   end
 
   add_index "tasks", ["case_id"], name: "index_tasks_on_case_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "name"
+    t.string   "oauth_token"
+    t.string   "refresh_token"
+    t.string   "instance_url"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
 
 end
