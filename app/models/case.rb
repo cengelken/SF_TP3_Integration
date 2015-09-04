@@ -17,7 +17,9 @@ class Case < ActiveRecord::Base
      AND (Status NOT IN ('7 - Close Pending Customer','8 - Closed')))")
 
     case_array = JSON.parse(raw_cases.to_json)
-    case_hash = {} 
+    case_hash = {}
+    task_hash = {}
+    @cases = []
     @tasks = []
 
     case_array.each do |case_obj|
@@ -26,7 +28,9 @@ class Case < ActiveRecord::Base
       case_hash[:url] = "https://meraki.my.salesforce.com/" + case_obj["Id"] 
       case_hash[:description] = case_obj["Subject"]
       case_hash[:owner] = case_obj["Owner"]["Name"]
-      puts case_hash
+      new_case = Case.create(case_hash)
+      @cases.push(new_case)
     end
+    @cases
   end
 end
