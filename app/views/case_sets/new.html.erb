@@ -1,3 +1,8 @@
+<div class="list-inline" >
+  <%= button_to 'Cancel', case_set_path(:id => @case_set.id), :method => :delete, class: 'btn btn-warning btn-xs pull-right' %>
+  <%= button_to 'Push to TP3', case_set_path(:id => @case_set.id), :method => :post, class: 'btn btn-success btn-xs pull-right', style: 'margin-right: 5px' %>
+  <h3>Escalation's Current Cases</h3>
+</div>
 <div class="row">
   <table class="table">
     <tr>

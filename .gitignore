@@ -21,3 +21,6 @@
 
 # Ignore initial staging test file
 targetprocess_call.rb
+
+# Ignore vim swp files
+*.swp

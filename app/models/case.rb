@@ -1,6 +1,6 @@
 class Case < ActiveRecord::Base
   belongs_to :case_set
-  has_many :tasks
+  has_many :tasks, dependent: :destroy
   validates :case_num,:case_set_id, :presence => true
 
   def self.get_salesforce_cases(user, set_id)
