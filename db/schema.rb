@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901042907) do
+ActiveRecord::Schema.define(version: 20150913180817) do
 
   create_table "case_sets", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20150901042907) do
     t.string   "url"
     t.string   "description"
     t.string   "owner"
+    t.string   "tp3_id"
   end
 
   add_index "cases", ["case_set_id"], name: "index_cases_on_case_set_id"
@@ -37,6 +38,7 @@ ActiveRecord::Schema.define(version: 20150901042907) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "case_id"
+    t.string   "tp3_id"
   end
 
   add_index "tasks", ["case_id"], name: "index_tasks_on_case_id"

@@ -1,18 +1,24 @@
 class CaseSetsController < ApplicationController
+
   def index
     @case_sets = CaseSet.all
   end
 
+  def show
+  end
+
   def new
-    @case_set = CaseSet.create
-    @cases = Case.get_salesforce_cases(current_user, @case_set.id)
+    @cases = Case.get_salesforce_cases(current_user)
   end
 
   def create
+    @case_set = CaseSet.new(case_set_params)
   end
 
-  def destroy
-    CaseSet.find(params[:id]).destroy
-    redirect_to root_url
-  end
+  private
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+#    def case_set_params
+#      params[:case_set]
+#    end
 end

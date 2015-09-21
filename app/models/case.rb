@@ -1,9 +1,9 @@
 class Case < ActiveRecord::Base
-  belongs_to :case_set
   has_many :tasks, dependent: :destroy
-  validates :case_num,:case_set_id, :presence => true
+  validates :case_num, :presence => true
+  accepts_nested_attributes_for :tasks, allow_destroy: true
 
-  def self.get_salesforce_cases(user, set_id)
+  def self.get_salesforce_cases(user)
     client = Restforce.new :oauth_token => user.oauth_token,
      :refresh_token => user.refresh_token,
      :instance_url  => user.instance_url,
@@ -16,21 +16,6 @@ class Case < ActiveRecord::Base
      WHERE ((Escalation_Type__c='Tier 1 - Escalation') 
      AND (Status NOT IN ('7 - Close Pending Customer','8 - Closed')))")
 
-    case_array = JSON.parse(raw_cases.to_json)
-    case_hash = {}
-    task_hash = {}
-    @cases = []
-    @tasks = []
-
-    case_array.each do |case_obj|
-      case_hash[:case_set_id] = set_id
-      case_hash[:case_num] = case_obj["CaseNumber"] 
-      case_hash[:url] = "https://meraki.my.salesforce.com/" + case_obj["Id"] 
-      case_hash[:description] = case_obj["Subject"]
-      case_hash[:owner] = case_obj["Owner"]["Name"]
-      new_case = Case.create(case_hash)
-      @cases.push(new_case)
-    end
-    @cases
+    raw_cases.as_json
   end
 end

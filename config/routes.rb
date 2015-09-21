@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root 'case_sets#index'
   resources :case_sets do
     resources :cases do

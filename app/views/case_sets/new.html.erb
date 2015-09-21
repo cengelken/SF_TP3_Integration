@@ -1,6 +1,6 @@
 <div class="list-inline" >
-  <%= button_to 'Cancel', case_set_path(:id => @case_set.id), :method => :delete, class: 'btn btn-warning btn-xs pull-right' %>
-  <%= button_to 'Push to TP3', case_set_path(:id => @case_set.id), :method => :post, class: 'btn btn-success btn-xs pull-right', style: 'margin-right: 5px' %>
+  <%= link_to 'Cancel', root_path, class: 'btn btn-warning btn-xs pull-right' %>
+  <%= button_to 'Push to TP3', case_sets_path, :method => :post, class: 'btn btn-success btn-xs pull-right', style: 'margin-right: 5px' %>
   <h3>Escalation's Current Cases</h3>
 </div>
 <div class="row">
@@ -12,9 +12,9 @@
     </tr>
     <% @cases.each do |case_obj| %>
       <tr>
-        <th><%= link_to case_obj.case_num, case_obj.url %></th>
-        <th><%= case_obj.description %></th>
-        <th><%= case_obj.owner %></th>
+        <th><%= link_to case_obj["CaseNumber"], "https://meraki.my.salesforce.com/" + case_obj["Id"] %></th>
+        <th><%= case_obj["Subject"] %></th>
+        <th><%= case_obj["Owner"]["Name"] %></th>
       </tr>
     <% end %>
  </table>

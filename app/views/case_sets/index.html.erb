@@ -1,20 +1,20 @@
 <div class="list-inline" >
-  <%= link_to 'New Case List', new_case_set_path, class: 'btn btn-primary btn-xs pull-right' %>
-  <h3>Case lists</h3>
+  <%= link_to 'New Case Set', new_case_set_path, class: 'btn btn-primary btn-xs pull-right' %>
+    <h3>Case Sets</h3>
 </div>
 <div class="row">
   <table class="table">
-  <tr>
-    <th>Set #</th>
-    <th>Date Generated</th>
-    <th># of Cases</th>
-  </tr>
-  <% @case_sets.each do |case_set| %>
-    <tr> 
-      <th><%= case_set.id %></th>
-      <th><%= case_set.created_at %></th>
-      <th><%= link_to case_set.cases.size, case_set_cases_path(case_set.id) %></th>
+    <tr>
+      <th>Case_Set #</th>
+      <th>Date Generated</th>
+      <th># of Cases</th>
     </tr>
-  <% end %>
-  </table>
+    <% @case_sets.each do |case_set| %>
+      <tr> 
+        <th><%= case_set.id %></th>
+        <th><%= case_set.created_at %></th>
+        <th><%= link_to case_set.cases.size, case_set_path(case_set.id) %></th>
+      </tr>
+    <% end %>
+ </table>
 </div>
