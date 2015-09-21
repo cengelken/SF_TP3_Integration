@@ -5,6 +5,7 @@ class CaseSetsController < ApplicationController
   end
 
   def show
+    @cases = Case.where(:case_set_id=> params[:id])
   end
 
   def new
