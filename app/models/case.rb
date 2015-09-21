@@ -20,13 +20,18 @@ class Case < ActiveRecord::Base
   end
 
   def self.build_case_set_hash(case_json)
-    return_string =  "{:case_set=>"
+    return_string = "{:case_set=>"
     case_json.each do |case_obj| 
-      return_string += ":case_attributes=>[{" +
+      return_string += "{:case_attributes=>[{" +
                        ":case_num=>#{case_obj["CaseNumber"]}," +
-                       ":url=>'https://meraki.my.salesforce.com/' + #{case_obj["Id"]}" +
-
+                       ":url=>https://meraki.my.salesforce.com/#{case_obj["Id"]}," +
+                       ":description=>#{case_obj["Subject"]}," +
+                       ":owner=>#{case_obj["Owner"]["Name"]}," +
+                       # tasks_attributes addition in the hash should go here
+                       "}],"
     end
+    return_string += "}}"
+    Rails.logger.debug "#{return_string}"
     return_string
   end
 end
