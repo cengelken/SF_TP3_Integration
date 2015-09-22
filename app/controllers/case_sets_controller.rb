@@ -13,13 +13,15 @@ class CaseSetsController < ApplicationController
   end
 
   def create
-    @case_set = CaseSet.new(case_set_params)
+    @case_set = CaseSet.create(case_set_params)
+    redirect_to case_set_path(@case_set.id)
   end
 
   private
 
     # Never trust parameters from the scary internet, only allow the white list through.
-#    def case_set_params
-#      params[:case_set]
-#    end
+    def case_set_params
+      #params.require("case_set").permit("cases_attributes": ["case_num","description","owner","url"])
+      params.require(:case_set).permit(cases_attributes: [:case_num,:description,:owner,:url])
+    end
 end
