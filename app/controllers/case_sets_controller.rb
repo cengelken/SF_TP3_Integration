@@ -16,7 +16,7 @@ class CaseSetsController < ApplicationController
     @case_set = CaseSet.create(case_set_params)
     #Case.push_to_tp3(@case_set)
     redirect_to root_path
-    #redirect_to case_set_path(@case_set.id)
+    # show that you've created the case w/a flash notice
   end
 
   private
