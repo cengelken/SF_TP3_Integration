@@ -1,7 +1,7 @@
 class CaseSetsController < ApplicationController
 
   def index
-    @case_sets = CaseSet.all
+    @case_sets = CaseSet.all.reverse
   end
 
   def show
@@ -14,7 +14,9 @@ class CaseSetsController < ApplicationController
 
   def create
     @case_set = CaseSet.create(case_set_params)
-    redirect_to case_set_path(@case_set.id)
+    #Case.push_to_tp3(@case_set)
+    redirect_to root_path
+    #redirect_to case_set_path(@case_set.id)
   end
 
   private
@@ -22,6 +24,6 @@ class CaseSetsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def case_set_params
       #params.require("case_set").permit("cases_attributes": ["case_num","description","owner","url"])
-      params.require(:case_set).permit(cases_attributes: [:case_num,:description,:owner,:url])
+      params.require(:case_set).permit(cases_attributes: [:case_num,:description,:owner,:url,:tasks_attributes => [:owner,:due_date,:next_action]])
     end
 end

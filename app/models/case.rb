@@ -11,7 +11,7 @@ class Case < ActiveRecord::Base
      :client_secret => ENV['SALESFORCE_SECRET'] 
 
     raw_cases = client.query("SELECT Id, CaseNumber, Subject, Owner.Name,
-     (SELECT Short_Description__c,Next_Action__c,Action_Due_Date__c,Action_Owner__c 
+     (SELECT Next_Action__c,Action_Due_Date__c,Action_Owner__c 
      FROM Support_Action_Plans__r) FROM Case 
      WHERE ((Escalation_Type__c='Tier 1 - Escalation') 
      AND (Status NOT IN ('7 - Close Pending Customer','8 - Closed')))")
@@ -26,9 +26,18 @@ class Case < ActiveRecord::Base
       return_string += "{:case_num=>\"#{case_obj.CaseNumber}\"," +
                        ":url=>\"https://meraki.my.salesforce.com/#{case_obj.Id}\"," +
                        ":description=>\"#{case_obj.Subject.gsub(/[^0-9A-Za-z ]/, '')}\"," +
-                       ":owner=>\"#{case_obj.Owner.Name}\"" +
-                       # tasks_attributes addition in the hash should go here
-                       "},"
+                       ":owner=>\"#{case_obj.Owner.Name}\""
+                       # tasks_attributes addition in the hash are here
+                       if case_obj.Support_Action_Plans__r
+                         return_string += ",:tasks_attributes=>["
+                           case_obj.Support_Action_Plans__r.each do |task_obj|
+                             return_string += "{:owner=>\"#{task_obj.Action_Owner__c}\"," +
+                                              ":due_date=>\"#{task_obj.Action_Due_Date__c}\"," +
+                                              ":next_action=>\"#{task_obj.Next_Action__c}\","
+                           end
+                         return_string += "},]"
+                       end
+      return_string += "},"
     end
     return_string += "]}}"
     Rails.logger.debug "#{return_string}"
