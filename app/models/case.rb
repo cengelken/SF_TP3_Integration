@@ -18,6 +18,26 @@ class Case < ActiveRecord::Base
     build_case_set_hash(raw_cases)
   end
 
+  def self.push_to_tp3(case_set)
+    # figure out what doesn't have a tp3_id or has changed
+    case_set.cases.each do |case_obj|
+      if case_obj.tp3_id.nil?
+        project_response = HTTParty.post(ENV['TARGETPROCESS_URL']+'Projects', :headers => { 'Content-Type' => 'application/json' }, :body => { 'Name' => "#{case_obj.case_num}" }.to_json, :query => {format: "json", token: ENV['TARGETPROCESS_API_KEY']})
+        # should check if the post fails
+        case_obj.update(tp3_id: "#{project_response.parsed_response["Id"]}")
+        if case_obj.tasks
+          case_obj.tasks.each do |task_obj|
+            task_response = HTTParty.post(ENV['TARGETPROCESS_URL']+'UserStories', :headers => { 'Content-Type' => 'application/json' }, :body => { 'Name' => "#{task_obj.next_action}", "Project"=>{"Id"=>"#{case_obj.tp3_id}"} }.to_json, :query => {format: "json", token: ENV['TARGETPROCESS_API_KEY']})
+            task_obj.update(tp3_id: "#{task_response.parsed_response["Id"]}")
+          end
+        end
+      end
+    end
+    # push to tp3
+    # get the tp3_id if needed
+    # else display success via flash notice
+  end
+
   def self.build_case_set_hash(case_collection)
     return_hash = Hash.new
     return_string = "{:case_set=>"

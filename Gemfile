@@ -32,6 +32,8 @@ gem 'restforce'
 gem 'figaro'
 # for an easily HTTPS-capable webserver
 gem 'thin'
+# for making RESTful call to TargetProcess3 API
+gem 'httparty'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
