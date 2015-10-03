@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150913180817) do
+ActiveRecord::Schema.define(version: 20151002194016) do
 
   create_table "case_sets", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20150913180817) do
     t.string   "instance_url"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "email"
   end
 
 end
